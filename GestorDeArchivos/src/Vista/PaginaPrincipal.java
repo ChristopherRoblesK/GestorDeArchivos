@@ -11,27 +11,40 @@ import javax.swing.JLabel;//libreria para usar Jlabel
 import javax.swing.JOptionPane;
 import Modelo.Archivos;
 import Modelo.RepMusica;
+import Modelo.RepVideo;
 import javax.swing.table.DefaultTableModel; // importación para el modelo de la tabla
-import javafx.embed.swing.JFXPanel;
-import javax.swing.*; 
+    
 
 public final class PaginaPrincipal extends javax.swing.JFrame {
-     // Configurar el modelo de la tabla
+    
+    
+    
+        // Configurar el modelo de la tabla1
         DefaultTableModel modeloT = new DefaultTableModel(
             new Object[]{"Nombre", "Extensión", "Artista", "Álbum", "Género", "Duración Seg", "Año", "Ruta", "Tamaño (MB)"}, 
             0
         );
         
+        // Configurar el modelo de la tableVideo
+        DefaultTableModel modeloVideo = new DefaultTableModel(
+            new Object[]{"Nombre", "Extensión", "Duración Seg", "Ruta", "Tamaño (MB)"}, 
+            0
+        );
+        
         File[] archivoSeleccionado;// declaración de una variable global para poder utlizarla en otros metodos del JFrame
-    
+        private RepMusica cancion;
+        
     public PaginaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        SwingUtilities.invokeLater(() -> new JFXPanel()); // Inicializa JavaFX
-
+        cancion = new RepMusica(""); // Inicializar con una ruta vacía
+        
         jTable1.setModel(modeloT);
         
+        tableVideos.setModel(modeloVideo);
+        
         txtPrueba.setVisible(false);
+        txtPruebaVid.setVisible(false);
          //Imagenes de botones
          btnReproducir.setIcon(setIcono("/Imagenes/video.png/",btnReproducir));
          btnCrearPlaylist.setIcon(setIcono("/Imagenes/musica.png/",btnCrearPlaylist));
@@ -52,7 +65,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
          SetImageLabel(lblImagen,"/Imagenes/galeria-de-imagenes1.png/");
          SetImageLabel(lblDuplicados,"/Imagenes/duplicar1.png/");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,15 +79,20 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         lblCarpeta = new javax.swing.JLabel();
         btnAgregarRuta = new javax.swing.JButton();
         btnMusica = new javax.swing.JButton();
-        btnImagenes = new javax.swing.JButton();
+        btnVideo = new javax.swing.JButton();
         btnDuplicados = new javax.swing.JButton();
         lblAgregarRuta = new javax.swing.JLabel();
         lblMusica = new javax.swing.JLabel();
         lblImagen = new javax.swing.JLabel();
         lblDuplicados = new javax.swing.JLabel();
         txtPrueba = new javax.swing.JTextField();
+        txtPruebaVid = new javax.swing.JTextField();
+        btnImagenes = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableVideos = new javax.swing.JTable();
+        btnReproducirVid = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -94,6 +112,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtRuta = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        JpanelVid = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -117,7 +137,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         btnMusica.setBackground(new java.awt.Color(187, 34, 51));
         btnMusica.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
         btnMusica.setForeground(new java.awt.Color(250, 227, 207));
-        btnMusica.setText("Música / Video");
+        btnMusica.setText("Música ");
         btnMusica.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnMusica.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMusica.addActionListener(new java.awt.event.ActionListener() {
@@ -126,12 +146,17 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnImagenes.setBackground(new java.awt.Color(187, 34, 51));
-        btnImagenes.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
-        btnImagenes.setForeground(new java.awt.Color(250, 227, 207));
-        btnImagenes.setText("Imagenes");
-        btnImagenes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnImagenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideo.setBackground(new java.awt.Color(187, 34, 51));
+        btnVideo.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnVideo.setForeground(new java.awt.Color(250, 227, 207));
+        btnVideo.setText("Video");
+        btnVideo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnVideo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVideoActionPerformed(evt);
+            }
+        });
 
         btnDuplicados.setBackground(new java.awt.Color(187, 34, 51));
         btnDuplicados.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
@@ -139,6 +164,13 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         btnDuplicados.setText("Mostrar Duplicados");
         btnDuplicados.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDuplicados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        btnImagenes.setBackground(new java.awt.Color(187, 34, 51));
+        btnImagenes.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnImagenes.setForeground(new java.awt.Color(250, 227, 207));
+        btnImagenes.setText("Imagenes");
+        btnImagenes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnImagenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,7 +183,17 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(lblAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,20 +201,17 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                                 .addComponent(btnAgregarRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnDuplicados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnImagenes, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnDuplicados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnImagenes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,28 +229,67 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                             .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
-                        .addComponent(btnImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
-                .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(btnDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 230, 730));
+
+        tableVideos.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
+        tableVideos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Extensión", "Duración", "Ruta", "Tamaño"
+            }
+        ));
+        tableVideos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableVideosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableVideos);
+
+        btnReproducirVid.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReproducirVid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReproducirVidMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 880, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 118, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel3);
@@ -234,6 +312,17 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("Nombre");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Extensión");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Artista");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Albúm");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Género");
+            jTable1.getColumnModel().getColumn(5).setHeaderValue("Duración");
+            jTable1.getColumnModel().getColumn(6).setHeaderValue("Año");
+            jTable1.getColumnModel().getColumn(7).setHeaderValue("Ruta");
+            jTable1.getColumnModel().getColumn(8).setHeaderValue("Tamaño");
+        }
 
         btnReproducir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReproducir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,6 +360,12 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
         jLabel5.setText("Tamaño Total Duplicados");
+
+        btnDetenerCancion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetenerCancionActionPerformed(evt);
+            }
+        });
 
         jSlider1.setMajorTickSpacing(10);
         jSlider1.setPaintLabels(true);
@@ -374,6 +469,33 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab3", jPanel5);
 
+        javax.swing.GroupLayout JpanelVidLayout = new javax.swing.GroupLayout(JpanelVid);
+        JpanelVid.setLayout(JpanelVidLayout);
+        JpanelVidLayout.setHorizontalGroup(
+            JpanelVidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 880, Short.MAX_VALUE)
+        );
+        JpanelVidLayout.setVerticalGroup(
+            JpanelVidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 473, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JpanelVid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(JpanelVid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab4", jPanel6);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 880, 630));
 
         jPanel1.setBackground(new java.awt.Color(187, 34, 51));
@@ -406,10 +528,15 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             
             File nombre = jFileChooser1.getSelectedFile();
             archivoSeleccionado = jFileChooser1.getSelectedFiles();
-                
+            
+            
             String [] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
             modeloT.setRowCount(0); // Limpiar datos anteriores
-                
+            
+            String [] extensionesVid = {".mp4"}; //Declaración de extensiones para videos
+            modeloVideo.setRowCount(0); // Limpiar datos anteriores
+            
+            //objeto para la musica 
             Archivos archivoMusica = new Archivos(archivoSeleccionado);
             double tamanioByte = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
             double tamanioGB = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
@@ -418,15 +545,34 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             double tamanioByte1 = 0;
             double tamanioGB1 = 0;
             long cantidadDup = 0;
+            
+            //objeto para video
+            RepVideo archivoVideo = new RepVideo(archivoSeleccionado);
+            double tamanioByteVid = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
+            double tamanioGBVid = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
                
+            long cantidadVid = 0;
+            double tamanioByteVid1 = 0;
+            double tamanioGBVid1 = 0;
+            long cantidadDupVid = 0;
+               
+            //bucle para entrar a los archivos
             for(File archivo : archivoSeleccionado){
+                //declaración para musica
                 cantidad = archivoMusica.contarArchivo(archivo, extensiones);
                 tamanioByte1 = archivoMusica.tamanioArchivosDuplicados(archivo, extensiones);
                 cantidadDup = archivoMusica.archivosDuplicados(archivo, extensiones);
                 archivoMusica.mostrarArchivosMusica(archivo, modeloT, extensiones);//Meter los datos en bucle al JTable
+                
+                //declaración para video
+                cantidadVid = archivoMusica.contarArchivo(archivo, extensiones);
+                tamanioByteVid1 = archivoMusica.tamanioArchivosDuplicados(archivo, extensiones);
+                cantidadDupVid = archivoMusica.archivosDuplicados(archivo, extensiones);
+                archivoVideo.mostrarArchivoVideo(archivo, modeloVideo, extensionesVid);
             }
             tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);
-                
+            tamanioGBVid1 = tamanioByte1 / (1024 * 1024 * 1024);
+            
             if(nombre == null || nombre.getName().equals("")){
                 JOptionPane.showMessageDialog(null, "Error al abrir el archivo");
             }
@@ -468,12 +614,29 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
     private void btnReproducirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReproducirMouseClicked
         String ruta = txtPrueba.getText();
-        System.out.println("Ruta del archivo: " + ruta); // Imprime la ruta para verificación
-        RepMusica cancion = new RepMusica(ruta);
-        cancion.pararAudio(); // Parar cualquier audio anterior
-        cancion.reproducirAudio(ruta); 
+        System.out.println("Ruta del archivo: " + ruta);
+        cancion.pararAudio();
+        cancion = new RepMusica(ruta);
+        cancion.reproducirAudio();
         
     }//GEN-LAST:event_btnReproducirMouseClicked
+
+    private void btnDetenerCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerCancionActionPerformed
+        cancion.pausarAudio();
+    }//GEN-LAST:event_btnDetenerCancionActionPerformed
+
+    private void tableVideosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVideosMouseClicked
+        int fila = tableVideos.rowAtPoint(evt.getPoint());
+        txtPruebaVid.setText(tableVideos.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_tableVideosMouseClicked
+
+    private void btnReproducirVidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReproducirVidMouseClicked
+
+    }//GEN-LAST:event_btnReproducirVidMouseClicked
+
+    private void btnVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoActionPerformed
+        jTabbedPane1.setSelectedIndex(0);//No manda a la pestaña 1 del tabbedPane
+    }//GEN-LAST:event_btnVideoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,10 +670,6 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             public void run() {
                 new PaginaPrincipal().setVisible(true);
             }
-        });
-        
-        SwingUtilities.invokeLater(() -> {
-            new PaginaPrincipal().setVisible(true);
         });
     }
     
@@ -581,11 +740,11 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
             txtTamañoDuplicadosMusica.setText(String.format("%.6f GB" , tamanioGB1));
     }
-    
-    
+
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JpanelVid;
     private javax.swing.JButton btnAgregarRuta;
     private javax.swing.JButton btnCrearPlaylist;
     private javax.swing.JButton btnDetenerCancion;
@@ -594,6 +753,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnImagenes;
     private javax.swing.JButton btnMusica;
     private javax.swing.JButton btnReproducir;
+    private javax.swing.JButton btnReproducirVid;
+    private javax.swing.JButton btnVideo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -605,7 +766,9 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
@@ -614,11 +777,14 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblDuplicados;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMusica;
+    private javax.swing.JTable tableVideos;
     private javax.swing.JTextField txtCantidadArchivosMusica;
     private javax.swing.JTextField txtDuplicadosMusica;
     private javax.swing.JTextField txtPesoTotalMusica;
     private javax.swing.JTextField txtPrueba;
+    private javax.swing.JTextField txtPruebaVid;
     private javax.swing.JTextField txtRuta;
     private javax.swing.JTextField txtTamañoDuplicadosMusica;
     // End of variables declaration//GEN-END:variables
-}
+
+

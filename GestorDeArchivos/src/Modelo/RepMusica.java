@@ -1,18 +1,29 @@
 
 package Modelo;
 
-import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import javax.swing.JOptionPane;
 
 public class RepMusica {
     
-    private String rutaDeAudio;
-    MediaPlayer reproductorDeAudio;
+     private String rutaDeAudio;
+    private Player audio;
+    private Thread ejecutarHilo;
+    private volatile boolean reproduciendo = false;
+    private volatile boolean enPausa = false;
+    private final Object pauseLock = new Object();
+
+
+  
     
     public RepMusica(String rutaDeAudio){
         this.rutaDeAudio = rutaDeAudio;
+        
     }
     
     //Métodos getters
@@ -25,47 +36,63 @@ public class RepMusica {
         this.rutaDeAudio = rutaDeAudio;
     }
     
-    public void reproducirAudio(String rutaDeAudio){
-        Platform.runLater(() -> {
-            if (reproductorDeAudio != null) {
-                reproductorDeAudio.stop();
-            }
+    public synchronized void reproducirAudio(){
+       pararAudio(); // Asegúrate de detener cualquier audio en reproducción
 
-            File audio = new File(rutaDeAudio);
-            System.out.println("Ruta absoluta del archivo: " + audio.getAbsolutePath()); // Imprime la ruta absoluta
-
-            if (!audio.exists()) {
-                System.out.println("El archivo de audio no existe: " + rutaDeAudio);
-                return;
-            }
-
+        ejecutarHilo = new Thread(() -> {
             try {
-                Media archivoDeAudio = new Media(audio.toURI().toString());
-                reproductorDeAudio = new MediaPlayer(archivoDeAudio);
+                InputStream archivoAudio = new FileInputStream(rutaDeAudio);
+                audio = new Player(archivoAudio);
 
-                reproductorDeAudio.setOnError(() -> {
-                    System.out.println("Error al reproducir el audio: " + reproductorDeAudio.getError().toString());
-                });
+                reproduciendo = true;
 
-                reproductorDeAudio.setOnReady(() -> {
-                    System.out.println("Reproducción lista, iniciando reproducción.");
-                    reproductorDeAudio.play();
-                });
+                while (reproduciendo) {
+                    if (!enPausa && !audio.play(1)) {
+                        break;
+                    }
+                    synchronized (pauseLock) {
+                        while (enPausa) {
+                            pauseLock.wait();
+                        }
+                    }
+                }
 
-            } catch (Exception e) {
-                System.out.println("Error al inicializar el media: " + e.toString());
+                audio.close();
+            } catch (FileNotFoundException | JavaLayerException | InterruptedException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
             }
         });
+        ejecutarHilo.start();
     }
     
-    public void pararAudio(){ 
-     Platform.runLater(() -> {
-            if (reproductorDeAudio != null) {
-                reproductorDeAudio.stop();
-                reproductorDeAudio.dispose(); // Libera recursos
-                reproductorDeAudio = null;
+    // Método para parar el audio completamente
+    public synchronized void pararAudio() {
+         reproduciendo = false;
+
+        if (audio != null) {
+            audio.close();
+            audio = null;
+        }
+
+        if (ejecutarHilo != null) {
+            ejecutarHilo.interrupt();
+            try {
+                ejecutarHilo.join();
+            } catch (InterruptedException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
             }
-        });
+            ejecutarHilo = null;
+        }
     }
     
+    public synchronized void pausarAudio() {
+        enPausa = true;
+    }
+
+    public synchronized void reanudarAudio() {
+        synchronized (pauseLock) {
+            enPausa = false;
+            pauseLock.notifyAll();
+        }
+    }
 }
