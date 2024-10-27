@@ -37,31 +37,34 @@ public class RepMusica {
     }
     
     public synchronized void reproducirAudio(){
-       pararAudio(); // Asegúrate de detener cualquier audio en reproducción
+       pararAudio(); // de detener cualquier audio en reproducción
 
-        ejecutarHilo = new Thread(() -> {
-            try {
-                InputStream archivoAudio = new FileInputStream(rutaDeAudio);
-                audio = new Player(archivoAudio);
-
-                reproduciendo = true;
-
-                while (reproduciendo) {
-                    if (!enPausa && !audio.play(1)) {
-                        break;
-                    }
-                    synchronized (pauseLock) {
-                        while (enPausa) {
-                            pauseLock.wait();
-                        }
-                    }
-                }
-
-                audio.close();
-            } catch (FileNotFoundException | JavaLayerException | InterruptedException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
-        });
+        ejecutarHilo = new Thread(new Runnable() {
+           @Override
+           public void run() {
+               try {
+                   InputStream archivoAudio = new FileInputStream(rutaDeAudio);
+                   audio = new Player(archivoAudio);
+                   
+                   reproduciendo = true;
+                   
+                   while (reproduciendo) {
+                       if (!enPausa && !audio.play(1)) {
+                           break;
+                       }
+                       synchronized (pauseLock) {
+                           while (enPausa) {
+                               pauseLock.wait();
+                           }
+                       }
+                   }
+                   
+                   audio.close();
+               } catch (FileNotFoundException | JavaLayerException | InterruptedException e) {
+                   JOptionPane.showMessageDialog(null, e.toString());
+               }
+           }
+       });
         ejecutarHilo.start();
     }
     
@@ -85,6 +88,7 @@ public class RepMusica {
         }
     }
     
+    /*
     public synchronized void pausarAudio() {
         enPausa = true;
     }
@@ -95,4 +99,5 @@ public class RepMusica {
             pauseLock.notifyAll();
         }
     }
+*/
 }

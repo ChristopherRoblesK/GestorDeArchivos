@@ -34,6 +34,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         File[] archivoSeleccionado;// declaración de una variable global para poder utlizarla en otros metodos del JFrame
         private RepMusica cancion;
         
+        
     public PaginaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -64,6 +65,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
          SetImageLabel(lblMusica,"/Imagenes/multimedia1.png/");
          SetImageLabel(lblImagen,"/Imagenes/galeria-de-imagenes1.png/");
          SetImageLabel(lblDuplicados,"/Imagenes/duplicar1.png/");
+         //SetImageLabel(lblMostrarImagen, "/Imágenes/Capturas de pantalla/Captura de pantalla (1).png/");
     }
     
     /**
@@ -114,6 +116,10 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         JpanelVid = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        lblMostrarImagen = new javax.swing.JLabel();
+        btnMostrarImagen = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -496,6 +502,56 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab4", jPanel6);
 
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblMostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(lblMostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnMostrarImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMostrarImagen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMostrarImagenMouseClicked(evt);
+            }
+        });
+        btnMostrarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarImagenActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(btnMostrarImagen)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnMostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab5", jPanel7);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 880, 630));
 
         jPanel1.setBackground(new java.awt.Color(187, 34, 51));
@@ -520,7 +576,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
        
         JFileChooser jFileChooser1 = new JFileChooser();
         jFileChooser1.setMultiSelectionEnabled(true); // Permitir seleccionar múltiples archivos
-        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        jFileChooser1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);//filtro que nos permite elegir que es lo que se selecciona
         int respuesta = jFileChooser1.showOpenDialog(null);
         
         if(respuesta == JFileChooser.APPROVE_OPTION){
@@ -530,10 +586,10 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             archivoSeleccionado = jFileChooser1.getSelectedFiles();
             
             
-            String [] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
+            String[] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
             modeloT.setRowCount(0); // Limpiar datos anteriores
             
-            String [] extensionesVid = {".mp4"}; //Declaración de extensiones para videos
+            String[] extensionesVid = {".mp4"}; //Declaración de extensiones para videos
             modeloVideo.setRowCount(0); // Limpiar datos anteriores
             
             //objeto para la musica 
@@ -619,10 +675,11 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         cancion = new RepMusica(ruta);
         cancion.reproducirAudio();
         
+        
     }//GEN-LAST:event_btnReproducirMouseClicked
 
     private void btnDetenerCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerCancionActionPerformed
-        cancion.pausarAudio();
+        cancion.pararAudio();
     }//GEN-LAST:event_btnDetenerCancionActionPerformed
 
     private void tableVideosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVideosMouseClicked
@@ -637,6 +694,14 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private void btnVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoActionPerformed
         jTabbedPane1.setSelectedIndex(0);//No manda a la pestaña 1 del tabbedPane
     }//GEN-LAST:event_btnVideoActionPerformed
+
+    private void btnMostrarImagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarImagenMouseClicked
+
+    }//GEN-LAST:event_btnMostrarImagenMouseClicked
+
+    private void btnMostrarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarImagenActionPerformed
+      
+    }//GEN-LAST:event_btnMostrarImagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -751,6 +816,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDuplicados;
     private javax.swing.JButton btnEliminarCancion;
     private javax.swing.JButton btnImagenes;
+    private javax.swing.JButton btnMostrarImagen;
     private javax.swing.JButton btnMusica;
     private javax.swing.JButton btnReproducir;
     private javax.swing.JButton btnReproducirVid;
@@ -767,6 +833,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSlider jSlider1;
@@ -776,6 +844,7 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblCarpeta;
     private javax.swing.JLabel lblDuplicados;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblMostrarImagen;
     private javax.swing.JLabel lblMusica;
     private javax.swing.JTable tableVideos;
     private javax.swing.JTextField txtCantidadArchivosMusica;
@@ -786,5 +855,5 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtRuta;
     private javax.swing.JTextField txtTamañoDuplicadosMusica;
     // End of variables declaration//GEN-END:variables
-
+}
 

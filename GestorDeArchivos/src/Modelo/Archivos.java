@@ -53,7 +53,7 @@ public class Archivos {
         
         for(File archivo1 : archivo){
             if(archivo1.isDirectory()){
-                tamanioTotal +=  calcularTamanioCarpeta(archivo1, extensiones);
+                tamanioTotal += calcularTamanioCarpeta(archivo1, extensiones);
             }
             else{
                 for(String extension : extensiones){
@@ -73,8 +73,9 @@ public class Archivos {
     public double calcularTamanioCarpeta(File directorio, String[] extensiones){
         double tamanio = 0;
         File[] archivos = directorio.listFiles();//Obtener los archivos dentro del directorio
+        
         if(archivos != null){
-            for(File archi: archivos){
+            for(File archi : archivos){
                 if(archi.isDirectory()){
                     tamanio += calcularTamanioCarpeta(archi, extensiones);// Llamada recursiva si es un subdirectorio
                 }
@@ -106,8 +107,7 @@ public class Archivos {
                            contador++;
                        }
                    }
-               }
-               else if(archi.isDirectory()){
+               }else if(archi.isDirectory()){
                    contador += contarArchivo(archi, extensiones);
                }
            }
@@ -195,7 +195,7 @@ public class Archivos {
                                 AudioHeader cabecera = archivoAudio.getAudioHeader();
                                 String nombreAudio = archi.getName();
                                 String ext = extension;
-                                String artista = metadatos != null ? metadatos.getFirst(FieldKey.ARTIST) : "Desconocido";
+                                String artista = metadatos.getFirst(FieldKey.ARTIST) != null ? metadatos.getFirst(FieldKey.ARTIST) : "Desconocido";
                                 String album = metadatos != null ? metadatos.getFirst(FieldKey.ALBUM) : "Desconocido";
                                 String genero = metadatos != null ? metadatos.getFirst(FieldKey.GENRE) : "Desconocido";
                                 int duracion = cabecera.getTrackLength();
