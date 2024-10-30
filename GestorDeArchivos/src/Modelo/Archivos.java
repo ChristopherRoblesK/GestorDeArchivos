@@ -195,7 +195,7 @@ public class Archivos {
                                 AudioHeader cabecera = archivoAudio.getAudioHeader();
                                 String nombreAudio = archi.getName();
                                 String ext = extension;
-                                String artista = metadatos.getFirst(FieldKey.ARTIST) != null ? metadatos.getFirst(FieldKey.ARTIST) : "Desconocido";
+                                String artista = metadatos != null ? metadatos.getFirst(FieldKey.ARTIST) : "Desconocido";
                                 String album = metadatos != null ? metadatos.getFirst(FieldKey.ALBUM) : "Desconocido";
                                 String genero = metadatos != null ? metadatos.getFirst(FieldKey.GENRE) : "Desconocido";
                                 int duracion = cabecera.getTrackLength();
@@ -222,14 +222,14 @@ public class Archivos {
                                 };
                                 //System.out.println( "Agregando: " + archi.getName());
                                 modeloT.addRow(contenedorArchivo);
+                                
                             }catch(HeadlessException | IOException | CannotReadException | InvalidAudioFrameException | ReadOnlyFileException | KeyNotFoundException | TagException e){
                                 JOptionPane.showMessageDialog(null, e.toString());
                             }
                             break; // no se siguen verificando otras extensiones
                         }
                     }
-                }  
-                else{
+                }else{
                     mostrarArchivosMusica(archi, modeloT, extensiones);
                 }
             }

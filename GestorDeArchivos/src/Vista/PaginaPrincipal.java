@@ -12,11 +12,11 @@ import javax.swing.JOptionPane;
 import Modelo.Archivos;
 import Modelo.RepMusica;
 import Modelo.RepVideo;
+import javafx.scene.media.Media;
 import javax.swing.table.DefaultTableModel; // importación para el modelo de la tabla
     
 
 public final class PaginaPrincipal extends javax.swing.JFrame {
-    
     
     
         // Configurar el modelo de la tabla1
@@ -37,15 +37,15 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         
     public PaginaPrincipal() {
         initComponents();
+        
         this.setLocationRelativeTo(null);
         cancion = new RepMusica(""); // Inicializar con una ruta vacía
         
         jTable1.setModel(modeloT);
-        
         tableVideos.setModel(modeloVideo);
-        
         txtPrueba.setVisible(false);
         txtPruebaVid.setVisible(false);
+        
          //Imagenes de botones
          btnReproducir.setIcon(setIcono("/Imagenes/video.png/",btnReproducir));
          btnCrearPlaylist.setIcon(setIcono("/Imagenes/musica.png/",btnCrearPlaylist));
@@ -688,7 +688,14 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tableVideosMouseClicked
 
     private void btnReproducirVidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReproducirVidMouseClicked
-
+        System.out.println("inicia");
+        File file = new File(txtPruebaVid.getText());
+        System.out.println(file.isFile());
+        Media media = new Media(file.toURI().toString());
+         System.out.println(file);
+        VentanaVideo v = new VentanaVideo(media);
+        
+        v.setVisible(true);
     }//GEN-LAST:event_btnReproducirVidMouseClicked
 
     private void btnVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoActionPerformed
