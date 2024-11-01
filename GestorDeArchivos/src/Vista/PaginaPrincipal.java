@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;//libreria para usar Jlabel
 import javax.swing.JOptionPane;
 import Modelo.Archivos;
+import Modelo.MostrarImage;
 import Modelo.RepMusica;
 import Modelo.RepVideo;
 import javafx.scene.media.Media;
@@ -31,6 +32,12 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             0
         );
         
+        // Configurar el modelo de la tableImagen
+        DefaultTableModel modeloImagen = new DefaultTableModel(
+            new Object[]{"Nombre", "Extensión", "Ruta", "Fecha de creación", "Fecha de modificación", "Tamaño (MB)", "Aparato", "Modelo"}, 
+            0
+        );
+        
         File[] archivoSeleccionado;// declaración de una variable global para poder utlizarla en otros metodos del JFrame
         private RepMusica cancion;
         
@@ -43,19 +50,32 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         
         jTable1.setModel(modeloT);
         tableVideos.setModel(modeloVideo);
+        tableImagen.setModel(modeloImagen);
+        
+        //No mostar mis txt para pruebas
         txtPrueba.setVisible(false);
         txtPruebaVid.setVisible(false);
+        txtPrueba3.setVisible(false);
         
          //Imagenes de botones
          btnReproducir.setIcon(setIcono("/Imagenes/video.png/",btnReproducir));
+         btnReproducirVid.setIcon(setIcono("/Imagenes/video.png/",btnReproducirVid));
+         btnMostrarImg.setIcon(setIcono("/Imagenes/video.png/",btnMostrarImg));
          btnCrearPlaylist.setIcon(setIcono("/Imagenes/musica.png/",btnCrearPlaylist));
          btnEliminarCancion.setIcon(setIcono("/Imagenes/eliminar1.png/",btnEliminarCancion));
+         btnEliminarVid.setIcon(setIcono("/Imagenes/eliminar1.png/",btnEliminarVid));
+         btnEliminarImg.setIcon(setIcono("/Imagenes/eliminar1.png/",btnEliminarImg));
          btnDetenerCancion.setIcon(setIcono("/Imagenes/stop-button.png/",btnDetenerCancion));
+        
          
          //Cambio de tamaño del boton
          btnReproducir.setPressedIcon(setIconoPresionado("/Imagenes/video.png/", btnReproducir,1,1));
+         btnReproducirVid.setPressedIcon(setIconoPresionado("/Imagenes/video.png/", btnReproducirVid,1,1));
+         btnMostrarImg.setPressedIcon(setIconoPresionado("/Imagenes/video.png/", btnMostrarImg,1,1));
          btnCrearPlaylist.setPressedIcon(setIconoPresionado("/Imagenes/musica.png/",btnCrearPlaylist,1,1));
          btnEliminarCancion.setPressedIcon(setIconoPresionado("/Imagenes/eliminar.png/",btnEliminarCancion,1,1));
+         btnEliminarVid.setPressedIcon(setIconoPresionado("/Imagenes/eliminar.png/",btnEliminarVid,1,1));
+         btnEliminarImg.setPressedIcon(setIconoPresionado("/Imagenes/eliminar.png/",btnEliminarImg,1,1));
          btnDetenerCancion.setPressedIcon(setIconoPresionado("/Imagenes/stop-button.png/",btnDetenerCancion,1,1));
          
          
@@ -65,6 +85,9 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
          SetImageLabel(lblMusica,"/Imagenes/multimedia1.png/");
          SetImageLabel(lblImagen,"/Imagenes/galeria-de-imagenes1.png/");
          SetImageLabel(lblDuplicados,"/Imagenes/duplicar1.png/");
+         SetImageLabel(lblVideo,"/Imagenes/clapperboard.png/");
+         
+         
          //SetImageLabel(lblMostrarImagen, "/Imágenes/Capturas de pantalla/Captura de pantalla (1).png/");
     }
     
@@ -90,11 +113,24 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         txtPrueba = new javax.swing.JTextField();
         txtPruebaVid = new javax.swing.JTextField();
         btnImagenes = new javax.swing.JButton();
+        lblVideo = new javax.swing.JLabel();
+        txtPrueba3 = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableVideos = new javax.swing.JTable();
         btnReproducirVid = new javax.swing.JButton();
+        txtRuta2 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtCantidadArchivosVideo = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtDuplicadosVideo = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtTamañoDuplicadosVideo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtPesoTotalVideo = new javax.swing.JTextField();
+        btnEliminarVid = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -110,18 +146,28 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         txtTamañoDuplicadosMusica = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnDetenerCancion = new javax.swing.JButton();
-        jSlider1 = new javax.swing.JSlider();
         jLabel6 = new javax.swing.JLabel();
         txtRuta = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        JpanelVid = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableImagen = new javax.swing.JTable();
+        btnMostrarImg = new javax.swing.JButton();
+        btnEliminarImg = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtRuta3 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtPesoTotalImg = new javax.swing.JTextField();
+        txtTamañoDuplicadosImg = new javax.swing.JTextField();
+        txtDuplicadosImg = new javax.swing.JTextField();
+        txtCantidadArchivosImg = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         lblMostrarImagen = new javax.swing.JLabel();
-        btnMostrarImagen = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblGestorPro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -177,79 +223,87 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         btnImagenes.setText("Imagenes");
         btnImagenes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnImagenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImagenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
+                        .addComponent(lblAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAgregarRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAgregarRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnDuplicados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnImagenes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                        .addComponent(lblVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPrueba3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
+                .addComponent(lblCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblCarpeta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAgregarRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
-                        .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMusica, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnImagenes, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
-                        .addComponent(btnDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(btnDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblDuplicados, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPruebaVid, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrueba3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 230, 730));
@@ -277,25 +331,110 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        txtRuta2.setEditable(false);
+
+        jLabel7.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
+        jLabel7.setText("Ruta:");
+
+        jLabel8.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel8.setText("Cantidad de archivos");
+
+        txtCantidadArchivosVideo.setEditable(false);
+
+        jLabel9.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel9.setText("Archivos Duplicados");
+
+        txtDuplicadosVideo.setEditable(false);
+
+        jLabel10.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel10.setText("Tamaño Total Duplicados");
+
+        txtTamañoDuplicadosVideo.setEditable(false);
+
+        jLabel11.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel11.setText("Tamaño Total de Archivos");
+
+        txtPesoTotalVideo.setEditable(false);
+
+        btnEliminarVid.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarVid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarVidMouseClicked(evt);
+            }
+        });
+        btnEliminarVid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarVidActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminarVid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRuta2, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 426, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTamañoDuplicadosVideo)
+                                    .addComponent(txtCantidadArchivosVideo)
+                                    .addComponent(txtDuplicadosVideo)
+                                    .addComponent(txtPesoTotalVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())
+                    .addComponent(jScrollPane2)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 118, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnReproducirVid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarVid, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtRuta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCantidadArchivosVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuplicadosVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamañoDuplicadosVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPesoTotalVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab1", jPanel3);
@@ -373,11 +512,6 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jSlider1.setMajorTickSpacing(10);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         jLabel6.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
         jLabel6.setText("Ruta:");
 
@@ -394,16 +528,13 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(btnCrearPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(btnDetenerCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(btnEliminarCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnCrearPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnDetenerCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(btnEliminarCancion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -416,12 +547,12 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                             .addComponent(txtTamañoDuplicadosMusica, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                             .addComponent(txtCantidadArchivosMusica)
                             .addComponent(txtDuplicadosMusica)
-                            .addComponent(txtPesoTotalMusica))
-                        .addContainerGap())
+                            .addComponent(txtPesoTotalMusica)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,58 +580,144 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPesoTotalMusica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCrearPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminarCancion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDetenerCancion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnCrearPlaylist, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminarCancion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDetenerCancion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab2", jPanel4);
 
+        tableImagen.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
+        tableImagen.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Extensión", "Ruta", "Fecha de cración", "Fecha de modificación", "Tamaño MB", "Aparato", "Modelo"
+            }
+        ));
+        tableImagen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableImagenMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableImagen);
+
+        btnMostrarImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarImgActionPerformed(evt);
+            }
+        });
+
+        btnEliminarImg.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarImgMouseClicked(evt);
+            }
+        });
+        btnEliminarImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarImgActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
+        jLabel12.setText("Ruta:");
+
+        txtRuta3.setEditable(false);
+
+        jLabel13.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel13.setText("Cantidad de archivos");
+
+        jLabel14.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel14.setText("Archivos Duplicados");
+
+        jLabel15.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel15.setText("Tamaño Total Duplicados");
+
+        jLabel16.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel16.setText("Tamaño Total de Archivos");
+
+        txtPesoTotalImg.setEditable(false);
+
+        txtTamañoDuplicadosImg.setEditable(false);
+
+        txtDuplicadosImg.setEditable(false);
+
+        txtCantidadArchivosImg.setEditable(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 880, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEliminarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMostrarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRuta3, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel16))
+                        .addGap(48, 48, 48)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTamañoDuplicadosImg)
+                            .addComponent(txtCantidadArchivosImg)
+                            .addComponent(txtDuplicadosImg)
+                            .addComponent(txtPesoTotalImg, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtRuta3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCantidadArchivosImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuplicadosImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamañoDuplicadosImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPesoTotalImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnMostrarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab3", jPanel5);
-
-        javax.swing.GroupLayout JpanelVidLayout = new javax.swing.GroupLayout(JpanelVid);
-        JpanelVid.setLayout(JpanelVidLayout);
-        JpanelVidLayout.setHorizontalGroup(
-            JpanelVidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 880, Short.MAX_VALUE)
-        );
-        JpanelVidLayout.setVerticalGroup(
-            JpanelVidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JpanelVid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(JpanelVid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("tab4", jPanel6);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -510,22 +727,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(lblMostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblMostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
         );
-
-        btnMostrarImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMostrarImagen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMostrarImagenMouseClicked(evt);
-            }
-        });
-        btnMostrarImagen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarImagenActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -535,19 +738,13 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(btnMostrarImagen)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnMostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab5", jPanel7);
@@ -557,11 +754,11 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(187, 34, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Geomanist Black", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(250, 227, 207));
-        jLabel2.setText("GESTOR PRO");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(331, 0, 310, 80));
+        lblGestorPro.setFont(new java.awt.Font("Geomanist Black", 1, 48)); // NOI18N
+        lblGestorPro.setForeground(new java.awt.Color(250, 227, 207));
+        lblGestorPro.setText("GESTOR PRO");
+        lblGestorPro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblGestorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 310, 80));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 880, 140));
 
@@ -592,6 +789,9 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             String[] extensionesVid = {".mp4"}; //Declaración de extensiones para videos
             modeloVideo.setRowCount(0); // Limpiar datos anteriores
             
+           String[] extensionesImg = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+           modeloImagen.setRowCount(0);
+            
             //objeto para la musica 
             Archivos archivoMusica = new Archivos(archivoSeleccionado);
             double tamanioByte = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
@@ -604,13 +804,24 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             
             //objeto para video
             RepVideo archivoVideo = new RepVideo(archivoSeleccionado);
-            double tamanioByteVid = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
-            double tamanioGBVid = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+            double tamanioByteVid = archivoVideo.tamanioArchivos(archivoSeleccionado, extensionesVid);
+            double tamanioGBVid = tamanioByteVid / (1024 * 1024 * 1024);//Convierte el tamaño a GB
                
             long cantidadVid = 0;
             double tamanioByteVid1 = 0;
             double tamanioGBVid1 = 0;
             long cantidadDupVid = 0;
+            
+            //objeto para imagen
+           MostrarImage archivoImg = new MostrarImage(archivoSeleccionado);
+           double tamanioByteImg = archivoImg.tamanioArchivos(archivoSeleccionado, extensionesImg);
+           double tamanioGBImg = tamanioByteImg / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+            
+            long cantidadImg = 0;
+            double tamanioByteImg1 = 0;
+            double tamanioGBImg1 = 0;
+            long cantidadDupImg = 0;
+            
                
             //bucle para entrar a los archivos
             for(File archivo : archivoSeleccionado){
@@ -621,23 +832,47 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 archivoMusica.mostrarArchivosMusica(archivo, modeloT, extensiones);//Meter los datos en bucle al JTable
                 
                 //declaración para video
-                cantidadVid = archivoMusica.contarArchivo(archivo, extensiones);
-                tamanioByteVid1 = archivoMusica.tamanioArchivosDuplicados(archivo, extensiones);
-                cantidadDupVid = archivoMusica.archivosDuplicados(archivo, extensiones);
+                cantidadVid = archivoVideo.contarArchivo(archivo, extensionesVid);
+                tamanioByteVid1 = archivoVideo.tamanioArchivosDuplicados(archivo, extensionesVid);
+                cantidadDupVid = archivoVideo.archivosDuplicados(archivo, extensionesVid);
                 archivoVideo.mostrarArchivoVideo(archivo, modeloVideo, extensionesVid);
+                
+                //declaración para imagen
+                cantidadImg = archivoImg.contarArchivo(archivo, extensionesImg);
+                tamanioByteImg1 = archivoImg.tamanioArchivosDuplicados(archivo, extensionesImg);
+                cantidadDupImg = archivoImg.archivosDuplicados(archivo, extensionesImg);
+                archivoImg.mostrarArchivoImagen(archivo, modeloImagen, extensionesImg);
             }
             tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);
-            tamanioGBVid1 = tamanioByte1 / (1024 * 1024 * 1024);
+            tamanioGBVid1 = tamanioByteVid1 / (1024 * 1024 * 1024);
+            tamanioGBImg1 = tamanioByteImg1 / (1024 * 1024 * 1024);
             
             if(nombre == null || nombre.getName().equals("")){
                 JOptionPane.showMessageDialog(null, "Error al abrir el archivo");
             }
             else{
+                
+                 //mostrar txt de música
                 txtRuta.setText(nombre.getAbsolutePath());
-                txtPesoTotalMusica.setText(String.format("%.6f GB" , tamanioGB));
-                txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
+                txtPesoTotalMusica.setText(String.format("%.2f GB" , tamanioGB));
                 txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
-                txtTamañoDuplicadosMusica.setText(String.format("%.6f GB" , tamanioGB1));
+                txtTamañoDuplicadosMusica.setText(String.format("%.2f GB" , tamanioGB1));
+                txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
+                
+                //mostrar txt de video
+                txtRuta2.setText(nombre.getAbsolutePath());
+                txtPesoTotalVideo.setText(String.format("%.2f GB" , tamanioGBVid));
+                txtDuplicadosVideo.setText(String.valueOf(cantidadDupVid));
+                txtTamañoDuplicadosVideo.setText(String.format("%.2f GB" , tamanioGBVid1));
+                txtCantidadArchivosVideo.setText(String.valueOf(cantidadVid));
+                lblGestorPro.setText("VIDEO");
+                
+                //mostrar txt Imagen
+                txtRuta3.setText(nombre.getAbsolutePath());
+                txtPesoTotalImg.setText(String.format("%.2f GB" , tamanioGBImg));
+                txtDuplicadosImg.setText(String.valueOf(cantidadDupImg));
+                txtTamañoDuplicadosImg.setText(String.format("%.2f GB" , tamanioGBImg1));
+                txtCantidadArchivosImg.setText(String.valueOf(cantidadImg));
                 
             }
         }
@@ -645,21 +880,29 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
     private void btnMusicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicaActionPerformed
        jTabbedPane1.setSelectedIndex(1);//No manda a la pestaña 2 del tabbedPane
+       lblGestorPro.setText("MÚSICA");
     }//GEN-LAST:event_btnMusicaActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int fila = jTable1.rowAtPoint(evt.getPoint());
-        txtPrueba.setText(jTable1.getValueAt(fila, 7).toString());
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void btnVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoActionPerformed
+        jTabbedPane1.setSelectedIndex(0);//No manda a la pestaña 1 del tabbedPane
+        lblGestorPro.setText("VIDEO");
+    }//GEN-LAST:event_btnVideoActionPerformed
 
+    private void btnDetenerCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerCancionActionPerformed
+        cancion.pararAudio();
+    }//GEN-LAST:event_btnDetenerCancionActionPerformed
+    
+    //Boton para eliminar musica
     private void btnEliminarCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCancionActionPerformed
         if(!"".equals(txtPrueba.getText())){
             int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de que quiere eliminar esta canción?");
             if(pregunta == 0){
                 Archivos archivoMusica = new Archivos(archivoSeleccionado);
-                archivoMusica.eliminarCanción(txtPrueba);
+                archivoMusica.eliminarArchivo(txtPrueba);
+                
+                //Métodos para actualizar la tabla despues de elimimar
                 limpiarTable();
-                cargarDatosTablaMusica();  
+                cargarDatosTablaMusica();
                 actualizarCamposMusica();
             }
         }
@@ -674,41 +917,99 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         cancion.pararAudio();
         cancion = new RepMusica(ruta);
         cancion.reproducirAudio();
-        
-        
     }//GEN-LAST:event_btnReproducirMouseClicked
 
-    private void btnDetenerCancionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerCancionActionPerformed
-        cancion.pararAudio();
-    }//GEN-LAST:event_btnDetenerCancionActionPerformed
-
-    private void tableVideosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVideosMouseClicked
-        int fila = tableVideos.rowAtPoint(evt.getPoint());
-        txtPruebaVid.setText(tableVideos.getValueAt(fila, 3).toString());
-    }//GEN-LAST:event_tableVideosMouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int fila = jTable1.rowAtPoint(evt.getPoint());
+        txtPrueba.setText(jTable1.getValueAt(fila, 7).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnReproducirVidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReproducirVidMouseClicked
         System.out.println("inicia");
         File file = new File(txtPruebaVid.getText());
         System.out.println(file.isFile());
         Media media = new Media(file.toURI().toString());
-         System.out.println(file);
+        System.out.println(file);
         VentanaVideo v = new VentanaVideo(media);
-        
+
         v.setVisible(true);
     }//GEN-LAST:event_btnReproducirVidMouseClicked
 
-    private void btnVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoActionPerformed
-        jTabbedPane1.setSelectedIndex(0);//No manda a la pestaña 1 del tabbedPane
-    }//GEN-LAST:event_btnVideoActionPerformed
+    private void tableVideosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVideosMouseClicked
+        int fila = tableVideos.rowAtPoint(evt.getPoint());
+        txtPruebaVid.setText(tableVideos.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_tableVideosMouseClicked
 
-    private void btnMostrarImagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarImagenMouseClicked
+    private void btnEliminarVidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarVidMouseClicked
+        //este se agrego solo y no puedo borrarlo :'C
+    }//GEN-LAST:event_btnEliminarVidMouseClicked
 
-    }//GEN-LAST:event_btnMostrarImagenMouseClicked
+    private void btnEliminarVidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVidActionPerformed
+       if(!"".equals(txtPruebaVid.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de que quiere eliminar este video?");
+            if(pregunta == 0){
+                Archivos archivoVid = new Archivos(archivoSeleccionado);
+                archivoVid .eliminarArchivo(txtPruebaVid);
+                /*
+                limpiarTable();
+                cargarDatosTablaMusica();
+                actualizarCamposMusica();
+                */
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún video");
+        }
+    }//GEN-LAST:event_btnEliminarVidActionPerformed
 
-    private void btnMostrarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarImagenActionPerformed
-      
-    }//GEN-LAST:event_btnMostrarImagenActionPerformed
+    private void tableImagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableImagenMouseClicked
+        int fila = tableImagen.rowAtPoint(evt.getPoint());
+        txtPrueba3.setText(tableImagen.getValueAt(fila, 2).toString());
+    }//GEN-LAST:event_tableImagenMouseClicked
+
+    private void btnMostrarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarImgActionPerformed
+        // Ruta de la imagen
+        String rutaDeImagen = txtPrueba3.getText();
+        // Cargar la imagen
+        ImageIcon imagen = new ImageIcon(rutaDeImagen);
+        // Escalar la imagen al tamaño del JLabel
+        Image imagenEscalada = imagen.getImage().getScaledInstance(lblMostrarImagen.getWidth(), lblMostrarImagen.getHeight(), Image.SCALE_SMOOTH);
+        // Establecer la imagen redimensionada en el JLabel
+        lblMostrarImagen.setIcon(new ImageIcon(imagenEscalada));
+        
+        //Movernos hacia donde se muestra la imagen
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_btnMostrarImgActionPerformed
+
+    private void btnImagenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenesActionPerformed
+        //Movernos hacia donde esta la tabla de imagenes
+        jTabbedPane1.setSelectedIndex(2);
+        lblGestorPro.setText("IMAGEN");
+    }//GEN-LAST:event_btnImagenesActionPerformed
+    
+    private void btnEliminarImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarImgMouseClicked
+        //Se creo y no sé como eliminarlo
+    }//GEN-LAST:event_btnEliminarImgMouseClicked
+    
+    private void btnEliminarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImgActionPerformed
+        if(!"".equals(txtPrueba3.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de que quiere eliminar esta Imagen?");
+            if(pregunta == 0){
+                Archivos archivoImg = new Archivos(archivoSeleccionado);
+                archivoImg.eliminarArchivo(txtPrueba3);
+                /*
+                limpiarTable();
+                cargarDatosTablaMusica();
+                actualizarCamposMusica();
+                */
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna Imagen");
+        }
+    }//GEN-LAST:event_btnEliminarImgActionPerformed
+    
+    
 
     /**
      * @param args the command line arguments
@@ -807,60 +1108,83 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 cantidadDup = archivoMusica.archivosDuplicados(archivo, extensiones);
                 archivoMusica.mostrarArchivosMusica(archivo, modeloT, extensiones);//Meter los datos en bucle al JTable
             }
-            txtPesoTotalMusica.setText(String.format("%.6f GB" , tamanioGB));
+            txtPesoTotalMusica.setText(String.format("%.2f GB" , tamanioGB));
             txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
             txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
-            txtTamañoDuplicadosMusica.setText(String.format("%.6f GB" , tamanioGB1));
+            txtTamañoDuplicadosMusica.setText(String.format("%.2f GB" , tamanioGB1));
     }
 
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel JpanelVid;
     private javax.swing.JButton btnAgregarRuta;
     private javax.swing.JButton btnCrearPlaylist;
     private javax.swing.JButton btnDetenerCancion;
     private javax.swing.JButton btnDuplicados;
     private javax.swing.JButton btnEliminarCancion;
+    private javax.swing.JButton btnEliminarImg;
+    private javax.swing.JButton btnEliminarVid;
     private javax.swing.JButton btnImagenes;
-    private javax.swing.JButton btnMostrarImagen;
+    private javax.swing.JButton btnMostrarImg;
     private javax.swing.JButton btnMusica;
     private javax.swing.JButton btnReproducir;
     private javax.swing.JButton btnReproducirVid;
     private javax.swing.JButton btnVideo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAgregarRuta;
     private javax.swing.JLabel lblCarpeta;
     private javax.swing.JLabel lblDuplicados;
+    private javax.swing.JLabel lblGestorPro;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JLabel lblMostrarImagen;
     private javax.swing.JLabel lblMusica;
+    private javax.swing.JLabel lblVideo;
+    private javax.swing.JTable tableImagen;
     private javax.swing.JTable tableVideos;
+    private javax.swing.JTextField txtCantidadArchivosImg;
     private javax.swing.JTextField txtCantidadArchivosMusica;
+    private javax.swing.JTextField txtCantidadArchivosVideo;
+    private javax.swing.JTextField txtDuplicadosImg;
     private javax.swing.JTextField txtDuplicadosMusica;
+    private javax.swing.JTextField txtDuplicadosVideo;
+    private javax.swing.JTextField txtPesoTotalImg;
     private javax.swing.JTextField txtPesoTotalMusica;
+    private javax.swing.JTextField txtPesoTotalVideo;
     private javax.swing.JTextField txtPrueba;
+    private javax.swing.JTextField txtPrueba3;
     private javax.swing.JTextField txtPruebaVid;
     private javax.swing.JTextField txtRuta;
+    private javax.swing.JTextField txtRuta2;
+    private javax.swing.JTextField txtRuta3;
+    private javax.swing.JTextField txtTamañoDuplicadosImg;
     private javax.swing.JTextField txtTamañoDuplicadosMusica;
+    private javax.swing.JTextField txtTamañoDuplicadosVideo;
     // End of variables declaration//GEN-END:variables
 }
 

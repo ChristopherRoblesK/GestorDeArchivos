@@ -31,9 +31,9 @@ public class RepVideo extends Archivos{
                 if(archi.isFile()){
                     for(String extension : extensiones){
                         if(archi.getName().endsWith(extension)){
-                            String ruta = archi.getAbsolutePath();
+                            rutaDeVideo = archi.getAbsolutePath();
                             
-                            try (InputStream input = new FileInputStream(ruta)) {
+                            try (InputStream input = new FileInputStream(rutaDeVideo)) {
                                 AutoDetectParser parser = new AutoDetectParser();
                                 BodyContentHandler handler = new BodyContentHandler();
                                 Metadata metadata = new Metadata();
@@ -46,12 +46,12 @@ public class RepVideo extends Archivos{
                                 // Imprimir metadatos específicos utilizando TikaCoreProperties
                                 String nombre = archi.getName();
                                 String ext = extension;
-                                String rutaArch = archi.getAbsolutePath();
                                 double tamanioByte = archi.length();
                                 double tamanioMB = tamanioByte / (1024 * 1024);
+                                String espacioVid = String.format("%.2f MB" , tamanioMB);
                                         
                                 Object[] contenedorArchivo = new Object[]{
-                                    nombre, ext, duracion, rutaArch, tamanioMB
+                                    nombre, ext, duracion, rutaDeVideo, espacioVid
                                 };
                                 modeloT.addRow(contenedorArchivo);
                             } catch (Exception e) {

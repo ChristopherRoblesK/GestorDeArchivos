@@ -124,6 +124,7 @@ public class Archivos {
         procesarArchivosD(directorio, mapaArchivo, extensiones);
         
         double totalTamanioDup = 0;
+        
         // Comprobar qué archivos están duplicados y sumar su tamaño
         for (Map.Entry<String, List<File>> entrada : mapaArchivo.entrySet()) {
             List<File> listaArchivo = entrada.getValue();
@@ -166,10 +167,9 @@ public class Archivos {
                 if (archi.isFile()) {
                     for(String extension : extensiones){
                         if(archi.getName().endsWith(extension)){
-                            String nomArchivo = archi.getName();
+                            String nomArchivo = normalizarNombreArchivo(archi.getName());
                             // Añadir el archivo al mapa, agrupando por nombre de archivo
                             mapaArchivo.computeIfAbsent(nomArchivo, k -> new ArrayList<>()).add(archi);
-                            break;
                         }
                     }
                 } else if (archi.isDirectory()) {
@@ -178,6 +178,12 @@ public class Archivos {
                 }
             }
         }
+    }
+    
+    // Método para normalizar el nombre del archivo
+    private static String normalizarNombreArchivo(String nombre) {
+        // Solo elimina el sufijo "-copia" pero mantiene el resto del nombre intacto
+        return nombre.replaceAll("(?i)\\s*-\\s*copia", "").toLowerCase(); // Eliminar sufijo y convertir a minúsculas para evitar diferencias por mayúsculas/minúsculas
     }
     
     //Método para mostrar los archivos en el JTable de musica
@@ -203,22 +209,10 @@ public class Archivos {
                                 String ruta = archi.getAbsolutePath();
                                 double tamanioByte = archi.length();
                                 double tamanioMB = tamanioByte / (1024 * 1024);
-                                
-                                /*
-                                // Verificar datos antes de agregar
-                                System.out.println("Nombre: " + nombreAudio);
-                                System.out.println("Extensión: " + ext);
-                                System.out.println("Artista: " + artista);
-                                System.out.println("Álbum: " + album);
-                                System.out.println("Género: " + genero);
-                                System.out.println("Duración: " + duracion);
-                                System.out.println("Año: " + anio);
-                                System.out.println("Ruta: " + ruta);
-                                System.out.println("Tamaño (MB): " + tamanioMB);
-                                */
+                                String espacioMB = String.format("%.2f MB" , tamanioMB);
                                 
                                 Object[] contenedorArchivo = new Object[]{
-                                    nombreAudio, ext, artista, album, genero, duracion, anio, ruta, tamanioMB
+                                    nombreAudio, ext, artista, album, genero, duracion, anio, ruta, espacioMB
                                 };
                                 //System.out.println( "Agregando: " + archi.getName());
                                 modeloT.addRow(contenedorArchivo);
@@ -237,7 +231,7 @@ public class Archivos {
     } 
     
     //Método para eliminar canciones
-    public void eliminarCanción(JTextField ruta){
+    public void eliminarArchivo(JTextField ruta){
         File cancion = new File(ruta.getText());
         if (!cancion.exists()) {
             JOptionPane.showMessageDialog(null, "El archivo no existe.");

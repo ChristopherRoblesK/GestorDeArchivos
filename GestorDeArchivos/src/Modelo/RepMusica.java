@@ -88,6 +88,7 @@ public class RepMusica {
         }
     }
     
+    //No funcionaron estos metodos como debían
     /*
     public synchronized void pausarAudio() {
         enPausa = true;
