@@ -20,8 +20,14 @@ import javax.swing.table.DefaultTableModel; // importación para el modelo de la
 public final class PaginaPrincipal extends javax.swing.JFrame {
     
     
-        // Configurar el modelo de la tabla1
+        // Configurar el modelo de la tabla1 para musica
         DefaultTableModel modeloT = new DefaultTableModel(
+            new Object[]{"Nombre", "Extensión", "Artista", "Álbum", "Género", "Duración Seg", "Año", "Ruta", "Tamaño (MB)"}, 
+            0
+        );
+        
+        //Configurar el modelo de la tabla para la musica repetida
+        DefaultTableModel modeloMusicaR = new DefaultTableModel(
             new Object[]{"Nombre", "Extensión", "Artista", "Álbum", "Género", "Duración Seg", "Año", "Ruta", "Tamaño (MB)"}, 
             0
         );
@@ -32,8 +38,21 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             0
         );
         
+        //Configurar el modelo de la tabla para videos repetidos
+        DefaultTableModel modeloVideoR = new DefaultTableModel(
+            new Object[]{"Nombre", "Extensión", "Duración Seg", "Ruta", "Tamaño (MB)"}, 
+            0
+        );
+        
+        
         // Configurar el modelo de la tableImagen
         DefaultTableModel modeloImagen = new DefaultTableModel(
+            new Object[]{"Nombre", "Extensión", "Ruta", "Fecha de creación", "Fecha de modificación", "Tamaño (MB)", "Aparato", "Modelo"}, 
+            0
+        );
+        
+        // Configurar el modelo de las images repetidas
+        DefaultTableModel modeloImagenR = new DefaultTableModel(
             new Object[]{"Nombre", "Extensión", "Ruta", "Fecha de creación", "Fecha de modificación", "Tamaño (MB)", "Aparato", "Modelo"}, 
             0
         );
@@ -48,9 +67,13 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         cancion = new RepMusica(""); // Inicializar con una ruta vacía
         
+        //Modelos de las tablas
         jTable1.setModel(modeloT);
         tableVideos.setModel(modeloVideo);
         tableImagen.setModel(modeloImagen);
+        tableRepetidosMusica.setModel(modeloMusicaR);
+        tableRepetidosVid.setModel(modeloVideoR);
+        tableRepetidosImg.setModel(modeloImagenR);
         
         //No mostar mis txt para pruebas
         txtPrueba.setVisible(false);
@@ -115,6 +138,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         btnImagenes = new javax.swing.JButton();
         lblVideo = new javax.swing.JLabel();
         txtPrueba3 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        lblGestorPro = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -166,8 +191,45 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         lblMostrarImagen = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        lblGestorPro = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableRepetidosMusica = new javax.swing.JTable();
+        btnImagenesDup = new javax.swing.JButton();
+        btnVideoDup = new javax.swing.JButton();
+        btnMusicaDup = new javax.swing.JButton();
+        btnEliminarMusicaDup = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txtRutaDupMusica1 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txtTamañoDuplicadosMusica1 = new javax.swing.JTextField();
+        txtDuplicadosMusica1 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        btnImagenesDup1 = new javax.swing.JButton();
+        btnVideoDup1 = new javax.swing.JButton();
+        btnMusicaDup1 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableRepetidosVid = new javax.swing.JTable();
+        btnEliminarVidDup = new javax.swing.JButton();
+        jLabel20 = new javax.swing.JLabel();
+        txtRutaDupVideo1 = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        txtDuplicadosVideo1 = new javax.swing.JTextField();
+        txtTamañoDuplicadosVideo1 = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        btnImagenesDup2 = new javax.swing.JButton();
+        btnVideoDup2 = new javax.swing.JButton();
+        btnMusicaDup2 = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tableRepetidosImg = new javax.swing.JTable();
+        btnEliminarImgDup = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        txtRutaDupImg1 = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        txtDuplicadosImg1 = new javax.swing.JTextField();
+        txtTamañoDuplicadosImg1 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -216,6 +278,11 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         btnDuplicados.setText("Mostrar Duplicados");
         btnDuplicados.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDuplicados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDuplicados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDuplicadosActionPerformed(evt);
+            }
+        });
 
         btnImagenes.setBackground(new java.awt.Color(187, 34, 51));
         btnImagenes.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
@@ -307,6 +374,18 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 230, 730));
+
+        jPanel1.setBackground(new java.awt.Color(187, 34, 51));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblGestorPro.setFont(new java.awt.Font("Geomanist Black", 1, 48)); // NOI18N
+        lblGestorPro.setForeground(new java.awt.Color(250, 227, 207));
+        lblGestorPro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGestorPro.setText("GESTOR PRO");
+        lblGestorPro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblGestorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 870, 80));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 880, 130));
 
         tableVideos.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
         tableVideos.setModel(new javax.swing.table.DefaultTableModel(
@@ -749,18 +828,440 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab5", jPanel7);
 
+        tableRepetidosMusica.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
+        tableRepetidosMusica.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
+            }
+        ));
+        tableRepetidosMusica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableRepetidosMusicaMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tableRepetidosMusica);
+
+        btnImagenesDup.setBackground(new java.awt.Color(187, 34, 51));
+        btnImagenesDup.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnImagenesDup.setForeground(new java.awt.Color(250, 227, 207));
+        btnImagenesDup.setText("Imagenes");
+        btnImagenesDup.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnImagenesDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImagenesDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenesDupActionPerformed(evt);
+            }
+        });
+
+        btnVideoDup.setBackground(new java.awt.Color(187, 34, 51));
+        btnVideoDup.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnVideoDup.setForeground(new java.awt.Color(250, 227, 207));
+        btnVideoDup.setText("Video");
+        btnVideoDup.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnVideoDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideoDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVideoDupActionPerformed(evt);
+            }
+        });
+
+        btnMusicaDup.setBackground(new java.awt.Color(187, 34, 51));
+        btnMusicaDup.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnMusicaDup.setForeground(new java.awt.Color(250, 227, 207));
+        btnMusicaDup.setText("Música ");
+        btnMusicaDup.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnMusicaDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMusicaDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicaDupActionPerformed(evt);
+            }
+        });
+
+        btnEliminarMusicaDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarMusicaDup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMusicaDupMouseClicked(evt);
+            }
+        });
+        btnEliminarMusicaDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMusicaDupActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
+        jLabel17.setText("Ruta:");
+
+        txtRutaDupMusica1.setEditable(false);
+
+        jLabel18.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel18.setText("Tamaño Total Duplicados");
+
+        txtTamañoDuplicadosMusica1.setEditable(false);
+
+        txtDuplicadosMusica1.setEditable(false);
+
+        jLabel19.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel19.setText("Archivos Duplicados");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnEliminarMusicaDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRutaDupMusica1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(94, 94, 94))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTamañoDuplicadosMusica1)
+                                    .addComponent(txtDuplicadosMusica1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnImagenesDup, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addComponent(btnVideoDup, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(btnMusicaDup, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImagenesDup, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVideoDup, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMusicaDup, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminarMusicaDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtRutaDupMusica1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuplicadosMusica1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamañoDuplicadosMusica1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab5", jPanel6);
+
+        btnImagenesDup1.setBackground(new java.awt.Color(187, 34, 51));
+        btnImagenesDup1.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnImagenesDup1.setForeground(new java.awt.Color(250, 227, 207));
+        btnImagenesDup1.setText("Imagenes");
+        btnImagenesDup1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnImagenesDup1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImagenesDup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenesDup1ActionPerformed(evt);
+            }
+        });
+
+        btnVideoDup1.setBackground(new java.awt.Color(187, 34, 51));
+        btnVideoDup1.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnVideoDup1.setForeground(new java.awt.Color(250, 227, 207));
+        btnVideoDup1.setText("Video");
+        btnVideoDup1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnVideoDup1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideoDup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVideoDup1ActionPerformed(evt);
+            }
+        });
+
+        btnMusicaDup1.setBackground(new java.awt.Color(187, 34, 51));
+        btnMusicaDup1.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnMusicaDup1.setForeground(new java.awt.Color(250, 227, 207));
+        btnMusicaDup1.setText("Música ");
+        btnMusicaDup1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnMusicaDup1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMusicaDup1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicaDup1ActionPerformed(evt);
+            }
+        });
+
+        tableRepetidosVid.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
+        tableRepetidosVid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        tableRepetidosVid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableRepetidosVidMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tableRepetidosVid);
+
+        btnEliminarVidDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarVidDup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarVidDupMouseClicked(evt);
+            }
+        });
+        btnEliminarVidDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarVidDupActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
+        jLabel20.setText("Ruta:");
+
+        txtRutaDupVideo1.setEditable(false);
+
+        jLabel21.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel21.setText("Archivos Duplicados");
+
+        txtDuplicadosVideo1.setEditable(false);
+
+        txtTamañoDuplicadosVideo1.setEditable(false);
+
+        jLabel22.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel22.setText("Tamaño Total Duplicados");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnEliminarVidDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRutaDupVideo1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTamañoDuplicadosVideo1)
+                                    .addComponent(txtDuplicadosVideo1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnImagenesDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addComponent(btnVideoDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(btnMusicaDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImagenesDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVideoDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMusicaDup1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminarVidDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(txtRutaDupVideo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuplicadosVideo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamañoDuplicadosVideo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab6", jPanel9);
+
+        btnImagenesDup2.setBackground(new java.awt.Color(187, 34, 51));
+        btnImagenesDup2.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnImagenesDup2.setForeground(new java.awt.Color(250, 227, 207));
+        btnImagenesDup2.setText("Imagenes");
+        btnImagenesDup2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnImagenesDup2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImagenesDup2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenesDup2ActionPerformed(evt);
+            }
+        });
+
+        btnVideoDup2.setBackground(new java.awt.Color(187, 34, 51));
+        btnVideoDup2.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnVideoDup2.setForeground(new java.awt.Color(250, 227, 207));
+        btnVideoDup2.setText("Video");
+        btnVideoDup2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnVideoDup2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVideoDup2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVideoDup2ActionPerformed(evt);
+            }
+        });
+
+        btnMusicaDup2.setBackground(new java.awt.Color(187, 34, 51));
+        btnMusicaDup2.setFont(new java.awt.Font("Geomanist Black", 1, 12)); // NOI18N
+        btnMusicaDup2.setForeground(new java.awt.Color(250, 227, 207));
+        btnMusicaDup2.setText("Música ");
+        btnMusicaDup2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnMusicaDup2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMusicaDup2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicaDup2ActionPerformed(evt);
+            }
+        });
+
+        tableRepetidosImg.setFont(new java.awt.Font("Geomanist Book", 0, 12)); // NOI18N
+        tableRepetidosImg.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
+            }
+        ));
+        tableRepetidosImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableRepetidosImgMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tableRepetidosImg);
+
+        btnEliminarImgDup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarImgDup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarImgDupMouseClicked(evt);
+            }
+        });
+        btnEliminarImgDup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarImgDupActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setFont(new java.awt.Font("Geomanist Bold", 0, 14)); // NOI18N
+        jLabel23.setText("Ruta:");
+
+        txtRutaDupImg1.setEditable(false);
+
+        jLabel24.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel24.setText("Archivos Duplicados");
+
+        txtDuplicadosImg1.setEditable(false);
+
+        txtTamañoDuplicadosImg1.setEditable(false);
+
+        jLabel25.setFont(new java.awt.Font("Geomanist Book", 1, 14)); // NOI18N
+        jLabel25.setText("Tamaño Total Duplicados");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnEliminarImgDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRutaDupImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDuplicadosImg1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                    .addComponent(txtTamañoDuplicadosImg1))
+                                .addGap(361, 361, 361))))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnImagenesDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(108, 108, 108)
+                        .addComponent(btnVideoDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(btnMusicaDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImagenesDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVideoDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMusicaDup2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminarImgDup, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(txtRutaDupImg1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDuplicadosImg1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamañoDuplicadosImg1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("tab7", jPanel10);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 880, 630));
-
-        jPanel1.setBackground(new java.awt.Color(187, 34, 51));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblGestorPro.setFont(new java.awt.Font("Geomanist Black", 1, 48)); // NOI18N
-        lblGestorPro.setForeground(new java.awt.Color(250, 227, 207));
-        lblGestorPro.setText("GESTOR PRO");
-        lblGestorPro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lblGestorPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 310, 80));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 880, 140));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -858,6 +1359,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
                 txtTamañoDuplicadosMusica.setText(String.format("%.2f GB" , tamanioGB1));
                 txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
+                txtDuplicadosMusica1.setText(String.valueOf(cantidadDup));
+                txtTamañoDuplicadosMusica1.setText(String.format("%.2f GB" , tamanioGB1));
                 
                 //mostrar txt de video
                 txtRuta2.setText(nombre.getAbsolutePath());
@@ -865,6 +1368,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 txtDuplicadosVideo.setText(String.valueOf(cantidadDupVid));
                 txtTamañoDuplicadosVideo.setText(String.format("%.2f GB" , tamanioGBVid1));
                 txtCantidadArchivosVideo.setText(String.valueOf(cantidadVid));
+                txtDuplicadosVideo1.setText(String.valueOf(cantidadDupVid));
+                txtTamañoDuplicadosVideo1.setText(String.format("%.2f GB" , tamanioGBVid1));
                 lblGestorPro.setText("VIDEO");
                 
                 //mostrar txt Imagen
@@ -873,6 +1378,8 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 txtDuplicadosImg.setText(String.valueOf(cantidadDupImg));
                 txtTamañoDuplicadosImg.setText(String.format("%.2f GB" , tamanioGBImg1));
                 txtCantidadArchivosImg.setText(String.valueOf(cantidadImg));
+                txtDuplicadosImg1.setText(String.valueOf(cantidadDupImg));
+                txtTamañoDuplicadosImg1.setText(String.format("%.2f GB" , tamanioGBImg1));
                 
             }
         }
@@ -903,7 +1410,6 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
                 //Métodos para actualizar la tabla despues de elimimar
                 limpiarTable();
                 cargarDatosTablaMusica();
-                actualizarCamposMusica();
             }
         }
         else{
@@ -950,11 +1456,9 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             if(pregunta == 0){
                 Archivos archivoVid = new Archivos(archivoSeleccionado);
                 archivoVid .eliminarArchivo(txtPruebaVid);
-                /*
-                limpiarTable();
-                cargarDatosTablaMusica();
-                actualizarCamposMusica();
-                */
+                
+                cargarDatosTablaVideo();
+                limpiarTableVideo();
             }
         }
         else{
@@ -997,17 +1501,188 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
             if(pregunta == 0){
                 Archivos archivoImg = new Archivos(archivoSeleccionado);
                 archivoImg.eliminarArchivo(txtPrueba3);
-                /*
-                limpiarTable();
-                cargarDatosTablaMusica();
-                actualizarCamposMusica();
-                */
+                
+                limpiarTableImagen();
+                cargarDatosTablaImagen(); 
             }
         }
         else{
             JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna Imagen");
         }
     }//GEN-LAST:event_btnEliminarImgActionPerformed
+
+    private void tableRepetidosMusicaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRepetidosMusicaMouseClicked
+        int fila = tableRepetidosMusica.rowAtPoint(evt.getPoint());
+        txtRutaDupMusica1.setText(tableRepetidosMusica.getValueAt(fila, 7).toString());
+    }//GEN-LAST:event_tableRepetidosMusicaMouseClicked
+
+    private void btnDuplicadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDuplicadosActionPerformed
+        jTabbedPane1.setSelectedIndex(4);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS");
+    }//GEN-LAST:event_btnDuplicadosActionPerformed
+
+    private void btnImagenesDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenesDupActionPerformed
+               
+        jTabbedPane1.setSelectedIndex(6);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS IMAGEN");
+        String[] extensionesImgR = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+        modeloImagenR.setRowCount(0);
+        MostrarImage archivoImgR = new MostrarImage(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoImgR.mostrarImgDup(archivo, modeloImagenR, extensionesImgR);
+        }
+    }//GEN-LAST:event_btnImagenesDupActionPerformed
+
+    private void btnVideoDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoDupActionPerformed
+        
+        jTabbedPane1.setSelectedIndex(5);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS VIDEO");
+        String[] extensionesVid = {".mp4"};//Declaración de extensiones para video
+        modeloVideoR.setRowCount(0);
+        RepVideo archivoVideoR = new RepVideo(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoVideoR.mostrarVideosDup(archivo, modeloVideoR, extensionesVid);
+        }
+    }//GEN-LAST:event_btnVideoDupActionPerformed
+
+    private void btnMusicaDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicaDupActionPerformed
+        
+        jTabbedPane1.setSelectedIndex(4);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS MUSICA");
+        String[] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
+        modeloMusicaR.setRowCount(0);
+        Archivos archivoMusicaR = new Archivos(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoMusicaR.mostrarMusicaDuplicada(archivo, modeloMusicaR, extensiones);
+        }
+    }//GEN-LAST:event_btnMusicaDupActionPerformed
+
+    private void btnImagenesDup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenesDup1ActionPerformed
+        
+        jTabbedPane1.setSelectedIndex(6);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS IMAGEN");
+        String[] extensionesImgR = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+        modeloImagenR.setRowCount(0);
+        MostrarImage archivoImgR = new MostrarImage(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoImgR.mostrarImgDup(archivo, modeloImagenR, extensionesImgR);
+        }
+    }//GEN-LAST:event_btnImagenesDup1ActionPerformed
+
+    private void btnVideoDup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoDup1ActionPerformed
+                
+        jTabbedPane1.setSelectedIndex(5);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS VIDEO");
+        String[] extensionesVid = {".mp4"};//Declaración de extensiones para video
+        modeloVideoR.setRowCount(0);
+        RepVideo archivoVideoR = new RepVideo(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoVideoR.mostrarVideosDup(archivo, modeloVideoR, extensionesVid);
+        }
+    }//GEN-LAST:event_btnVideoDup1ActionPerformed
+
+    private void btnMusicaDup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicaDup1ActionPerformed
+        
+        jTabbedPane1.setSelectedIndex(4);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS MUSICA");
+        String[] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
+        modeloMusicaR.setRowCount(0);
+        Archivos archivoMusicaR = new Archivos(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoMusicaR.mostrarMusicaDuplicada(archivo, modeloMusicaR, extensiones);
+        }
+    }//GEN-LAST:event_btnMusicaDup1ActionPerformed
+
+    private void tableRepetidosVidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRepetidosVidMouseClicked
+        int fila = tableRepetidosVid.rowAtPoint(evt.getPoint());
+        txtRutaDupVideo1.setText(tableRepetidosVid.getValueAt(fila, 3).toString());
+    }//GEN-LAST:event_tableRepetidosVidMouseClicked
+
+    private void btnImagenesDup2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenesDup2ActionPerformed
+       
+        jTabbedPane1.setSelectedIndex(6);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS IMAGEN");
+        String[] extensionesImgR = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+        modeloImagenR.setRowCount(0);
+        MostrarImage archivoImgR = new MostrarImage(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoImgR.mostrarImgDup(archivo, modeloImagenR, extensionesImgR);
+        }
+    }//GEN-LAST:event_btnImagenesDup2ActionPerformed
+
+    private void btnVideoDup2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVideoDup2ActionPerformed
+        
+        jTabbedPane1.setSelectedIndex(5);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS VIDEO");
+        String[] extensionesVid = {".mp4"};//Declaración de extensiones para video
+        modeloVideoR.setRowCount(0);
+        RepVideo archivoVideoR = new RepVideo(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoVideoR.mostrarVideosDup(archivo, modeloVideoR, extensionesVid);
+        }
+    }//GEN-LAST:event_btnVideoDup2ActionPerformed
+
+    private void btnMusicaDup2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicaDup2ActionPerformed
+       
+        jTabbedPane1.setSelectedIndex(4);
+        lblGestorPro.setText("ARCHIVOS DUPLICADOS MUSICA");
+        String[] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
+        modeloMusicaR.setRowCount(0);
+        Archivos archivoMusicaR = new Archivos(archivoSeleccionado);
+        
+        for(File archivo : archivoSeleccionado){
+            archivoMusicaR.mostrarMusicaDuplicada(archivo, modeloMusicaR, extensiones);
+        }
+    }//GEN-LAST:event_btnMusicaDup2ActionPerformed
+
+    private void tableRepetidosImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableRepetidosImgMouseClicked
+        int fila = tableRepetidosImg.rowAtPoint(evt.getPoint());
+        txtRutaDupImg1.setText(tableRepetidosImg.getValueAt(fila, 2).toString());
+    }//GEN-LAST:event_tableRepetidosImgMouseClicked
+
+    private void btnEliminarMusicaDupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMusicaDupMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarMusicaDupMouseClicked
+
+    private void btnEliminarMusicaDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMusicaDupActionPerformed
+        if(!"".equals(txtRutaDupMusica1.getText())){
+            int pregunta = JOptionPane.showConfirmDialog(null,"Esta seguro de que quiere eliminar esta Canción?");
+            if(pregunta == 0){
+                Archivos archivoMusica = new Archivos(archivoSeleccionado);
+                archivoMusica.eliminarArchivo(txtRutaDupMusica1);
+                
+                limpiarTableMusicaRep();
+                cargarDatosTablaMusicaRep();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna Imagen");
+        }
+    }//GEN-LAST:event_btnEliminarMusicaDupActionPerformed
+
+    private void btnEliminarVidDupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarVidDupMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarVidDupMouseClicked
+
+    private void btnEliminarVidDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVidDupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarVidDupActionPerformed
+
+    private void btnEliminarImgDupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarImgDupMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarImgDupMouseClicked
+
+    private void btnEliminarImgDupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarImgDupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarImgDupActionPerformed
     
     
 
@@ -1085,33 +1760,176 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
         File directorio = new File(txtRuta.getText());
         String[] extensiones = {".mp3", ".wma", ".flv"}; // Definimos las extensiones que queremos mostrar
         Archivos archivoMusica = new Archivos(archivoSeleccionado);
+        double tamanioByte = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
+        double tamanioGB = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+               
+        long cantidad = 0;
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
+        
         for(File archivo : archivoSeleccionado){
-         archivoMusica.mostrarArchivosMusica(directorio, modeloT, extensiones); // Llamamos al método existente para llenar la tabla
+            cantidad = archivoMusica.contarArchivo(archivo, extensiones);
+            tamanioByte1 = archivoMusica.tamanioArchivosDuplicados(archivo, extensiones);
+            cantidadDup = archivoMusica.archivosDuplicados(archivo, extensiones);
+            archivoMusica.mostrarArchivosMusica(directorio, modeloT, extensiones); // Llamamos al método existente para llenar la tabla
+        }
+        
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtPesoTotalMusica.setText(String.format("%.2f GB" , tamanioGB));
+        txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
+        txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosMusica.setText(String.format("%.2f GB" , tamanioGB1));
+    }
+    
+     public void limpiarTableVideo(){
+        for(int i = 0; i < modeloVideo.getRowCount(); i++){
+            modeloVideo.removeRow(i);
+            i -= 1;
         }
     }
     
-    public void actualizarCamposMusica(){
+    public void cargarDatosTablaVideo(){
+        modeloVideo.setRowCount(0); // Limpiar la tabla
+        File directorio = new File(txtRuta.getText());
+        String[] extensionesVid = {".mp4"};//Declaración de extensiones para video
+        RepVideo archivoVideo = new RepVideo(archivoSeleccionado);
+        double tamanioByte = archivoVideo.tamanioArchivos(archivoSeleccionado, extensionesVid);
+        double tamanioGB = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+               
+        long cantidad = 0;
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
         
-        String [] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
-        Archivos archivoMusica = new Archivos(archivoSeleccionado);
-            double tamanioByte = archivoMusica.tamanioArchivos(archivoSeleccionado, extensiones);
-            double tamanioGB = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        for(File archivo : archivoSeleccionado){
+            cantidad = archivoVideo.contarArchivo(archivo, extensionesVid);
+            tamanioByte1 = archivoVideo.tamanioArchivosDuplicados(archivo, extensionesVid);
+            cantidadDup = archivoVideo.archivosDuplicados(archivo, extensionesVid);
+            archivoVideo.mostrarArchivoVideo(directorio, modeloVideo, extensionesVid); // Llamamos al método existente para llenar la tabla
+        }
+        
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtPesoTotalVideo.setText(String.format("%.2f GB" , tamanioGB));
+        txtCantidadArchivosVideo.setText(String.valueOf(cantidad));
+        txtDuplicadosVideo.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosVideo.setText(String.format("%.2f GB" , tamanioGB1));
+    }
+    
+    public void limpiarTableImagen(){
+        for(int i = 0; i < modeloImagen.getRowCount(); i++){
+            modeloImagen.removeRow(i);
+            i -= 1;
+        }
+    }
+    
+    public void cargarDatosTablaImagen(){
+        modeloImagen.setRowCount(0); // Limpiar la tabla
+        File directorio = new File(txtRuta.getText());
+        String[] extensionesImg = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+        MostrarImage archivoImg = new MostrarImage(archivoSeleccionado);
+        double tamanioByte = archivoImg.tamanioArchivos(archivoSeleccionado, extensionesImg);
+        double tamanioGB = tamanioByte / (1024 * 1024 * 1024);//Convierte el tamaño a GB
                
-            long cantidad = 0;
-            double tamanioByte1 = 0;
-            double tamanioGB1 = 0;
-            long cantidadDup = 0;
-               
-            for(File archivo : archivoSeleccionado){
-                cantidad = archivoMusica.contarArchivo(archivo, extensiones);
-                tamanioByte1 = archivoMusica.tamanioArchivosDuplicados(archivo, extensiones);
-                cantidadDup = archivoMusica.archivosDuplicados(archivo, extensiones);
-                archivoMusica.mostrarArchivosMusica(archivo, modeloT, extensiones);//Meter los datos en bucle al JTable
-            }
-            txtPesoTotalMusica.setText(String.format("%.2f GB" , tamanioGB));
-            txtCantidadArchivosMusica.setText(String.valueOf(cantidad));
-            txtDuplicadosMusica.setText(String.valueOf(cantidadDup));
-            txtTamañoDuplicadosMusica.setText(String.format("%.2f GB" , tamanioGB1));
+        long cantidad = 0;
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
+        
+        for(File archivo : archivoSeleccionado){
+            cantidad = archivoImg.contarArchivo(archivo, extensionesImg);
+            tamanioByte1 = archivoImg.tamanioArchivosDuplicados(archivo, extensionesImg);
+            cantidadDup = archivoImg.archivosDuplicados(archivo, extensionesImg);
+            archivoImg.mostrarArchivoImagen(directorio, modeloImagen, extensionesImg);// Llamamos al método existente para llenar la tabla    
+        }
+        
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtPesoTotalImg.setText(String.format("%.2f GB" , tamanioGB));
+        txtCantidadArchivosImg.setText(String.valueOf(cantidad));
+        txtDuplicadosImg.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosImg.setText(String.format("%.2f GB" , tamanioGB1));
+    }
+    
+     public void limpiarTableMusicaRep(){
+        for(int i = 0; i < modeloMusicaR.getRowCount(); i++){
+            modeloMusicaR.removeRow(i);
+            i -= 1;
+        }
+    }
+    
+    public void cargarDatosTablaMusicaRep(){
+        
+         String[] extensiones = {".mp3", ".wma", ".flv"}; //Declaración de extensiones para música
+        modeloMusicaR.setRowCount(0);
+        Archivos archivoMusicaR = new Archivos(archivoSeleccionado);
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
+        
+        for(File archivo : archivoSeleccionado){
+            tamanioByte1 = archivoMusicaR.tamanioArchivosDuplicados(archivo, extensiones);
+            cantidadDup = archivoMusicaR.archivosDuplicados(archivo, extensiones);
+            archivoMusicaR.mostrarMusicaDuplicada(archivo, modeloMusicaR, extensiones);
+        }
+        
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtDuplicadosMusica1.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosMusica1.setText(String.format("%.2f GB" , tamanioGB1));
+    }
+    
+    public void limpiarTableVideoRep(){
+        for(int i = 0; i < modeloVideoR.getRowCount(); i++){
+            modeloVideoR.removeRow(i);
+            i -= 1;
+        }
+    }
+    
+        public void cargarDatosTablaVideoRep(){
+        
+         String[] extensionesVid = {".mp4"}; //Declaración de extensiones para video
+        modeloVideoR.setRowCount(0);
+        RepVideo archivoVideoR = new RepVideo(archivoSeleccionado);
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
+        
+        for(File archivo : archivoSeleccionado){
+            tamanioByte1 = archivoVideoR.tamanioArchivosDuplicados(archivo, extensionesVid);
+            cantidadDup = archivoVideoR.archivosDuplicados(archivo, extensionesVid);
+            archivoVideoR.mostrarVideosDup(archivo, modeloVideoR, extensionesVid);
+        }
+        
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtDuplicadosVideo1.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosVideo1.setText(String.format("%.2f GB" , tamanioGB1));
+    }
+    
+    public void limpiarTableImgRep(){
+        for(int i = 0; i < modeloImagenR.getRowCount(); i++){
+            modeloImagenR.removeRow(i);
+            i -= 1;
+        }
+    }
+        
+    public void cargarDatosTablaImgRep(){
+        
+        String[] extensionesImgR = {".jpg", ".jpeg", ".png", ".gif", ".raw", ".svg"};
+        modeloImagenR.setRowCount(0);
+        MostrarImage archivoImgR = new MostrarImage(archivoSeleccionado);
+        
+        double tamanioByte1 = 0;
+        double tamanioGB1 = 0;
+        long cantidadDup = 0;
+        
+        for(File archivo : archivoSeleccionado){
+            tamanioByte1 = archivoImgR.tamanioArchivosDuplicados(archivo, extensionesImgR);
+            cantidadDup = archivoImgR.archivosDuplicados(archivo, extensionesImgR);
+            archivoImgR.mostrarImgDup(archivo, modeloImagenR, extensionesImgR);
+        }
+
+        tamanioGB1 = tamanioByte1 / (1024 * 1024 * 1024);//Convierte el tamaño a GB
+        txtDuplicadosImg1.setText(String.valueOf(cantidadDup));
+        txtTamañoDuplicadosImg1.setText(String.format("%.2f GB" , tamanioGB1));
     }
 
     
@@ -1123,13 +1941,25 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDuplicados;
     private javax.swing.JButton btnEliminarCancion;
     private javax.swing.JButton btnEliminarImg;
+    private javax.swing.JButton btnEliminarImgDup;
+    private javax.swing.JButton btnEliminarMusicaDup;
     private javax.swing.JButton btnEliminarVid;
+    private javax.swing.JButton btnEliminarVidDup;
     private javax.swing.JButton btnImagenes;
+    private javax.swing.JButton btnImagenesDup;
+    private javax.swing.JButton btnImagenesDup1;
+    private javax.swing.JButton btnImagenesDup2;
     private javax.swing.JButton btnMostrarImg;
     private javax.swing.JButton btnMusica;
+    private javax.swing.JButton btnMusicaDup;
+    private javax.swing.JButton btnMusicaDup1;
+    private javax.swing.JButton btnMusicaDup2;
     private javax.swing.JButton btnReproducir;
     private javax.swing.JButton btnReproducirVid;
     private javax.swing.JButton btnVideo;
+    private javax.swing.JButton btnVideoDup;
+    private javax.swing.JButton btnVideoDup1;
+    private javax.swing.JButton btnVideoDup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1138,6 +1968,15 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1146,15 +1985,21 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAgregarRuta;
@@ -1166,13 +2011,19 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblMusica;
     private javax.swing.JLabel lblVideo;
     private javax.swing.JTable tableImagen;
+    private javax.swing.JTable tableRepetidosImg;
+    private javax.swing.JTable tableRepetidosMusica;
+    private javax.swing.JTable tableRepetidosVid;
     private javax.swing.JTable tableVideos;
     private javax.swing.JTextField txtCantidadArchivosImg;
     private javax.swing.JTextField txtCantidadArchivosMusica;
     private javax.swing.JTextField txtCantidadArchivosVideo;
     private javax.swing.JTextField txtDuplicadosImg;
+    private javax.swing.JTextField txtDuplicadosImg1;
     private javax.swing.JTextField txtDuplicadosMusica;
+    private javax.swing.JTextField txtDuplicadosMusica1;
     private javax.swing.JTextField txtDuplicadosVideo;
+    private javax.swing.JTextField txtDuplicadosVideo1;
     private javax.swing.JTextField txtPesoTotalImg;
     private javax.swing.JTextField txtPesoTotalMusica;
     private javax.swing.JTextField txtPesoTotalVideo;
@@ -1182,9 +2033,15 @@ public final class PaginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtRuta;
     private javax.swing.JTextField txtRuta2;
     private javax.swing.JTextField txtRuta3;
+    private javax.swing.JTextField txtRutaDupImg1;
+    private javax.swing.JTextField txtRutaDupMusica1;
+    private javax.swing.JTextField txtRutaDupVideo1;
     private javax.swing.JTextField txtTamañoDuplicadosImg;
+    private javax.swing.JTextField txtTamañoDuplicadosImg1;
     private javax.swing.JTextField txtTamañoDuplicadosMusica;
+    private javax.swing.JTextField txtTamañoDuplicadosMusica1;
     private javax.swing.JTextField txtTamañoDuplicadosVideo;
+    private javax.swing.JTextField txtTamañoDuplicadosVideo1;
     // End of variables declaration//GEN-END:variables
 }
 

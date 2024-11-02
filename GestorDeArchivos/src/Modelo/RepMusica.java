@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class RepMusica {
     
-     private String rutaDeAudio;
+    private String rutaDeAudio;
     private Player audio;
     private Thread ejecutarHilo;
     private volatile boolean reproduciendo = false;

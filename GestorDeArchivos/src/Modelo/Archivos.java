@@ -159,7 +159,7 @@ public class Archivos {
     return cantidadDup;
    }
    
-    private void procesarArchivosD(File directorio, HashMap<String, List<File>> mapaArchivo, String[] extensiones) {
+    public void procesarArchivosD(File directorio, HashMap<String, List<File>> mapaArchivo, String[] extensiones) {
         File[] archiv = directorio.listFiles();
     
         if (archiv != null) {
@@ -245,6 +245,53 @@ public class Archivos {
             JOptionPane.showMessageDialog(null, "Se eliminó la canción con éxito.");
         } else {
             JOptionPane.showMessageDialog(null, "No se pudo eliminar la canción.");
+        }   
+    }
+    
+    
+    public void mostrarMusicaDuplicada(File directorio, DefaultTableModel modeloT, String[] extensiones) {
+        HashMap<String, List<File>> mapaArchivo = new HashMap<>();
+        procesarArchivosD(directorio, mapaArchivo, extensiones);
+    
+        for(Map.Entry<String, List<File>> entrada : mapaArchivo.entrySet()) {
+            List<File> listaArchivo = entrada.getValue();
+            if(listaArchivo.size() > 1) { // Solo archivos duplicados
+                if(listaArchivo.size() > 1) {
+                    File archivoDuplicado = listaArchivo.get(0);
+                    try {
+                        AudioFile archivoAudio = AudioFileIO.read(archivoDuplicado);
+                        Tag metadatos = archivoAudio.getTag();
+                        AudioHeader cabecera = archivoAudio.getAudioHeader();
+                        String nombreAudio = archivoDuplicado.getName();
+                        String ext = getExtension(nombreAudio);
+                        String artista = metadatos != null ? metadatos.getFirst(FieldKey.ARTIST) : "Desconocido";
+                        String album = metadatos != null ? metadatos.getFirst(FieldKey.ALBUM) : "Desconocido";
+                        String genero = metadatos != null ? metadatos.getFirst(FieldKey.GENRE) : "Desconocido";
+                        int duracion = cabecera.getTrackLength();
+                        String anio = metadatos != null ? metadatos.getFirst(FieldKey.YEAR) : "N/A";
+                        String ruta = archivoDuplicado.getAbsolutePath();
+                        double tamanioByte = archivoDuplicado.length();
+                        double tamanioMB = tamanioByte / (1024 * 1024);
+                        String espacioMB = String.format("%.2f MB", tamanioMB);
+
+                        Object[] contenedorArchivo = new Object[]{
+                            nombreAudio, ext, artista, album, genero, duracion, anio, ruta, espacioMB
+                        };
+                        modeloT.addRow(contenedorArchivo);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e.toString());
+                    }
+                }
+            }
+        }
+    }
+    
+    public String getExtension(String nombreArchivo) {
+        int i = nombreArchivo.lastIndexOf('.');
+        if (i > 0) {
+            return nombreArchivo.substring(i + 1);
+        } else {
+            return ""; // No hay extensión
         }
     }
 }
